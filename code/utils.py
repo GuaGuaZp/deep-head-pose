@@ -1,7 +1,7 @@
 import numpy as np
 import torch
 import torchfile
-from torchile import load
+from torchfile import load
 import os
 import scipy.io as sio
 import cv2
