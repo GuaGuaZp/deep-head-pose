@@ -133,6 +133,8 @@ class Pose_300W_LP(Dataset):
 
         # Bin values
         bins = np.array(range(-99, 102, 3))
+        # Angles vary in the range [-99,102)
+        # from (0 - 67)
         binned_pose = np.digitize([yaw, pitch, roll], bins)
 
         # Get target tensors

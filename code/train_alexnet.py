@@ -91,7 +91,7 @@ if __name__ == '__main__':
     if not os.path.exists('output/snapshots'):
         os.makedirs('output/snapshots')
 
-    model = hopenet.AlexNet(66)
+    model = hopenet.AlexNet(68)
     load_filtered_state_dict(model, model_zoo.load_url(model_urls['alexnet']))
 
     print('Loading data.')
@@ -129,7 +129,7 @@ if __name__ == '__main__':
     # Regression loss coefficient
     alpha = args.alpha
 
-    idx_tensor = [idx for idx in range(66)]
+    idx_tensor = [idx for idx in range(68)]   # 0 ~ 67
     idx_tensor = Variable(torch.FloatTensor(idx_tensor)).cuda(gpu)
 
     optimizer = torch.optim.Adam([{'params': get_ignored_params(model), 'lr': 0},
@@ -165,9 +165,9 @@ if __name__ == '__main__':
             pitch_predicted = softmax(pre_pitch)
             roll_predicted = softmax(pre_roll)
 
-            yaw_predicted = torch.sum(yaw_predicted * idx_tensor, 1) * 3 - 99
-            pitch_predicted = torch.sum(pitch_predicted * idx_tensor, 1) * 3 - 99
-            roll_predicted = torch.sum(roll_predicted * idx_tensor, 1) * 3 - 99
+            yaw_predicted = torch.sum(yaw_predicted * idx_tensor, 1) * 3 - 102
+            pitch_predicted = torch.sum(pitch_predicted * idx_tensor, 1) * 3 - 102
+            roll_predicted = torch.sum(roll_predicted * idx_tensor, 1) * 3 - 102
 
             loss_reg_yaw = reg_criterion(yaw_predicted, label_yaw_cont)
             loss_reg_pitch = reg_criterion(pitch_predicted, label_pitch_cont)
